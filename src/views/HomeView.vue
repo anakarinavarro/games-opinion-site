@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <NavBar />
+    <div>
+      <h1>Lista de Juegos Disponibles</h1>
+      <GamesCard />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Store from '@/store'
+import NavBar from '@/components/NavBar.vue'
+import GamesCard from '@/components/GamesCard.vue'
 
 export default {
-  name: "HomeView",
   components: {
-    HelloWorld,
+    GamesCard,
+    NavBar,
   },
-};
+  beforeRouteEnter(to, from, next) {
+    Store.dispatch('GamesModule/getAllGames')
+    next()
+  },
+}
 </script>
