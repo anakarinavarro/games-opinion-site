@@ -6,8 +6,10 @@
           <div class="modal-header">
             <h5 class="modal-title">
               Deja tu opinión sobre el juego:
-              <span v-for="(AllGame, index) of AllGames" :key="index">
-                {{ AllGame.name === 'Grand Theft Auto V' ? 'Grand Theft Auto V' : 'Portal 2' }}
+              <span v-for="(AllGame, index) of AllGames.name" :key="index">
+                {{
+                  AllGame.find((name) => opinion.AllGame.name) ? 'Grand Theft Auto V' : 'Portal 2'
+                }}
               </span>
             </h5>
             <button
@@ -64,6 +66,7 @@
 <script>
 import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
@@ -78,6 +81,7 @@ export default {
     ...mapState('GamesModule', {
       AllGames: (state) => state.games,
     }),
+    ...mapGetters(['getGmesAndOpinions']),
   },
   methods: {
     ...mapActions('GamesModule', ['newOpinions', 'getAllGames']),

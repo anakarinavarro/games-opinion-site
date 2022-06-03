@@ -36,7 +36,6 @@ export default {
   data() {
     return {
       showModal: false,
-      addOpinion: '',
     }
   },
   computed: {
@@ -44,23 +43,9 @@ export default {
       AllGames: (state) => state.games,
     }),
     ...mapState('GamesModule', ['opinions']),
-    AllCategory() {
-      if (this.categoria === 'opinions') {
-        return this.$store.getters['GamesModule/opinionGame']
-      } else {
-        return this.$store.getters['GamesModule/adminGames']
-      }
-    },
   },
   methods: {
     ...mapActions('GamesModule', ['newOpinions', 'openModal']),
-    manejarClick() {
-      this.newOpinions({
-        nombre: this.addOpinion,
-        categoria: this.categoria,
-      })
-      this.addOpinion = ''
-    },
   },
 }
 </script>

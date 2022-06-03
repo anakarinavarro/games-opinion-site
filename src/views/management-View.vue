@@ -25,12 +25,23 @@
             </td>
             <td>{{ opinion.opinion }}</td>
             <td>
-              <button @click="eliminarOpinion" type="button" class="btn btn-danger">
+              <button @click="eliminarOpinion(opinion.id)" type="button" class="btn btn-danger">
                 Eliminar
               </button>
             </td>
             <td>
-              <button @click="editarOpinion" type="button" class="btn btn-info">Editar</button>
+              <router-link
+                type="button"
+                class="btn btn-info"
+                :to="{
+                  name: 'editar-View',
+                  params: {
+                    id: opinion.id,
+                  },
+                }"
+              >
+                Editar
+              </router-link>
             </td>
           </tr>
         </tbody>

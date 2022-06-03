@@ -4,10 +4,10 @@
 
     <div>
       <h1>Lista de Opiniones</h1>
-      <div v-if="opinions.length === ''" class="alert alert-danger" role="alert">
+      <div v-if="!existeOpinion" class="alert alert-danger" role="alert">
         No existen opiniones por mostrar
       </div>
-      <div>
+      <div v-else-if="existeOpinion">
         <ul class="list-group">
           <li class="list-group-item" v-for="(opinion, $index) of opinions" :key="$index">
             Opinion creada por: {{ opinion.nombre }}. Para el juego:
@@ -38,7 +38,10 @@ export default {
   },
 
   methods: {
-    ...mapActions('GamesModule', ['getAllGames']),
+    ...mapActions('GamesModule', ['getAllGames', 'newOpinions']),
+    existeOpinion() {
+      this.newOpinions.length === ''
+    },
   },
 }
 </script>

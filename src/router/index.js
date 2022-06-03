@@ -16,6 +16,11 @@ const routes = [
     component: () => import('../views/management-View.vue'),
   },
   {
+    path: '/editar/:id',
+    name: 'editar-View',
+    component: () => import('../views/editar-View.vue'),
+  },
+  {
     path: '/opinions',
     name: 'opinions',
     component: () => import('../views/opinions-View.vue'),
