@@ -25,6 +25,11 @@ const routes = [
     name: 'opinions',
     component: () => import('../views/opinions-View.vue'),
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'Error',
+    component: () => import('../views/error-View.vue'),
+  },
 ]
 
 const router = new VueRouter({

@@ -1,47 +1,22 @@
 <template>
   <div>
     <NavBar />
+    <div class="container">
+      <h1 class="my-3">Lista de Opiniones Disponibles</h1>
 
-    <div>
-      <h1>Lista de Opiniones</h1>
-      <div v-if="!existeOpinion" class="alert alert-danger" role="alert">
-        No existen opiniones por mostrar
-      </div>
-      <div v-else-if="existeOpinion">
-        <ul class="list-group">
-          <li class="list-group-item" v-for="(opinion, $index) of opinions" :key="$index">
-            Opinion creada por: {{ opinion.nombre }}. Para el juego:
-            <span v-for="(AllGame, index) of AllGames" :key="index">
-              {{ AllGame.name === 'Grand Theft Auto V' ? 'Grand Theft Auto V' : 'Portal 2' }}
-            </span>
-          </li>
-        </ul>
-      </div>
+      <InputGames />
     </div>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-import { mapState } from 'vuex'
-import { mapActions } from 'vuex'
+import InputGames from '@/components/InputGames.vue'
 
 export default {
   components: {
     NavBar,
-  },
-  computed: {
-    ...mapState('GamesModule', ['opinions']),
-    ...mapState('GamesModule', {
-      AllGames: (state) => state.games,
-    }),
-  },
-
-  methods: {
-    ...mapActions('GamesModule', ['getAllGames', 'newOpinions']),
-    existeOpinion() {
-      this.newOpinions.length === ''
-    },
+    InputGames,
   },
 }
 </script>

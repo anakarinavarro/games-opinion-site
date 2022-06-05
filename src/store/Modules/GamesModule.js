@@ -1,4 +1,5 @@
 //import { Axios } from 'axios'
+import router from '../Modules/GamesModule.js'
 
 export const gamesModule = {
   namespaced: true,
@@ -7,6 +8,8 @@ export const gamesModule = {
     opinions: [],
     opinion: {
       id: '',
+      name: '',
+      opinion: '',
     },
     showModal: false,
   },
@@ -20,12 +23,22 @@ export const gamesModule = {
     SET_SHOWMODAL(state, newmodal) {
       state.showModal = newmodal
     },
-    SET_ELIMINAR(state, payload) {
-      state.opinions = state.opinions.filter((opinion) => opinion.id != payload)
+    SET_ELIMINAR(state, opinion) {
+      state.opinions.splice(opinion, 1)
     },
 
     SET_EDITAR(state, payload) {
+      if (!state.opinios.find((opinion) => opinion.id === payload)) {
+        router.push('/opinions')
+        return
+      }
       state.opinion = state.opinios.find((opinion) => opinion.id === payload)
+    },
+    SET_UP(state, payload) {
+      state.opinions = state.opinions.map((opinion) =>
+        opinion.id === payload.id ? payload : opinion
+      )
+      router.push('/opinions')
     },
   },
   actions: {
@@ -44,29 +57,15 @@ export const gamesModule = {
     OpenModal(context) {
       context.commit('SET_SHOWMODAL', true)
     },
-    eliminarOpinion(context, id) {
-      context.commit('SET_ELIMINAR', id)
+    eliminarOpinion(context, opinion) {
+      context.commit('SET_ELIMINAR', opinion)
     },
 
-    editarOpinion(context, id) {
-      context.commit('SET_EDITAR', id)
+    editarOpinion(context, opinion) {
+      context.commit('SET_EDITAR', opinion)
     },
-  },
-  getters: {
-    getGmesAndOpinions(state) {
-      const { games, opinions } = state
-      const getFullData = []
-      opinions.forEach((opinion) => {
-        const gameOnOPinion = games.find((game) => {
-          return game.id === opinion.idGame
-        })
-        const gameMoreOpinion = {
-          ...opinion,
-          game: { ...gameOnOPinion },
-        }
-        getFullData.push(gameMoreOpinion)
-      })
-      return getFullData
+    upOpinion(context, opinion) {
+      context.commit('SET_UP', opinion)
     },
   },
 }

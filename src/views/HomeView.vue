@@ -1,8 +1,8 @@
 <template>
   <div>
     <NavBar />
-    <div>
-      <h1>Lista de Juegos Disponibles</h1>
+    <div class="container">
+      <h1 class="my-3">Catalogo de Juegos Disponibles</h1>
       <GamesCard />
     </div>
   </div>
